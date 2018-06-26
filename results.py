@@ -13,6 +13,8 @@
 #     )
 #     movies.append(m)
 
+import player_searcher
+
 class AttrDict(dict):
     def __init__(self, *args, **kwargs):
         super(AttrDict, self).__init__(*args, **kwargs)
@@ -20,6 +22,7 @@ class AttrDict(dict):
 
 def gameList(namedTuple, gameList):
     game = []
+    global g
     for g in gameList:
         ga = namedTuple(
             seasonYear=g.get("seasonYear"),
@@ -33,6 +36,7 @@ def gameList(namedTuple, gameList):
 
 def passingStats(namedTuple, gameList):
     stats = []
+    global s
     for s in gameList:
         st = namedTuple(
             sack=s.get("sacks"),
@@ -54,6 +58,7 @@ def passingStats(namedTuple, gameList):
 
 def rushingStats(namedTuple, gameList):
     stats = []
+    global s
     for s in gameList:
         st = namedTuple(
             fumblesLost=s.get("fumblesLost"),
@@ -71,6 +76,7 @@ def rushingStats(namedTuple, gameList):
 
 def receivingStats(namedTuple, gameList):
     stats = []
+    global s
     for s in gameList:
         st = namedTuple(
             receivingTwoPointAttemptMade=s.get("receivingTwoPointAttemptMade"),
@@ -85,3 +91,31 @@ def receivingStats(namedTuple, gameList):
         )
     stats.append(s)
     return stats
+
+def defensiveStats(namedTuple, gameList):
+    stats = []
+    global s
+    for s in gameList:
+        st = namedTuple(
+            tackleLoss=s.get("tackleLoss"),
+            recoveredFumbles=s.get("recoveredFumbles"),
+            assistedTackles=s.get("assistedTackles"),
+            tackleLossYards=s.get("tackleLossYards"),
+            qbHit=s.get("qbHit"),
+            miscTds=s.get("miscTDs"),
+            defenseInt=s.get("defenseInt"),
+            defenseSack=s.get("defenseSack"),
+            intTds=s.get("intTds"),
+            recoveredFumbleTD=s.get("recoveredFumbleTD"),
+            tacklePrimary=s.get("tacklePrimary"),
+            defenseSackYds=s.get("defenseSackYds"),
+            tackle=s.get("tackle"),
+            safety=s.get("safety"),
+            passDef=s.get("passDef"),
+            intYds=s.get("intYds"),
+            forcedFumbles=s.get("forcedFumbles")
+        )
+    stats.append(s)
+    return stats
+
+#"tackleLoss, recoveredFumbles, assistedTackles, tackleLossYards, qbHit, miscTds, defenseInt, defenseSack, intTds, recoveredFumbleTD, tacklePrimary, defenseSackYds, tackle, safety, passDef, intYds, forcedFumble

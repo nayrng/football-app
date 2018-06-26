@@ -55,9 +55,12 @@ def searchGame():
             elif search.lower() == 'c':
                 pass
             elif search.lower() == 'd':
-                print("Please enter which team you'd like to look up")
-                print("or type 'HELP' to view all teams and their keys")
+                printers.team_prompt()
                 team = input()
+                while team.lower() == 'help':
+                    printers.team_help()
+                    printers.team_prompt()
+                    team = input()
                 season = input("Please type what year the game was played in: ")
                 week = input("Please type what week the game was played in: ")
                 game_searcher.search_for_specific_game(team, season, week)

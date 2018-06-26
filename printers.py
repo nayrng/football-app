@@ -121,20 +121,76 @@ def print_receiving_info(resultList):
 
     print(stats.draw())
 
+def print_defensive_info(resultList):
+    stats = Texttable()
+    stats.add_rows([['SOLO TCKL', 'AST', 'TOTAL', 'TFL', 'TFL YDS', 'INT', 'PASS DEF', 'QB HIT', 'SACKS', 'FF', 'DEF TD', 'SFTY'],
+                    [resultList[0]['tackle'],
+                     resultList[0]['assistedTackles'],
+                     resultList[0]['tackle'] + resultList[0]['assistedTackles'],
+                     resultList[0]['tackleLoss'],
+                     resultList[0]['tackleLossYards'],
+                     resultList[0]['defenseInt'],
+                     resultList[0]['passDef'],
+                     resultList[0]['qbHit'],
+                     resultList[0]['defenseSack'],
+                     resultList[0]['forcedFumbles'],
+                     resultList[0]['miscTds'] + resultList[0]['intTds'] + resultList[0]['recoveredFumbleTD'],
+                     resultList[0]['safety']
+                     ]
+
+                    ])
+
+    print(stats.draw())
+
 
 def help_stats():
     print("available stats: ")
     print("     passing\n"
           "     rushing\n"
           "     receiving\n"
-          "     kick return\n"
-          "     fumbles\n"
-          "     defense\n"
-          "     kicking\n"
-          "     punting\n")
+          "     defensive\n"
+          )
 
 
 def stat_prompt():
     print("Please type the stat you'd like to see (passing, rushing, etc.)")
     print("Leave blank to return all available stats")
     print("Type 'HELP' for all supported stat types")
+
+def team_prompt():
+    print("Please enter which team you'd like to look up")
+    print("or type 'HELP' to view all teams and their keys")
+
+def team_help():
+    print("ARI -- Arizona Cardinals\n"
+          "ATL -- Atlanta Falcons\n"
+          "BAL -- Baltimore Ravens\n"
+          "BUF -- Buffalo Bills\n"
+          "CAR -- Carolina Panthers\n"
+          "CHI -- Chicago Bears\n"
+          "CIN -- Cincinnati Bengals\n"
+          "CLE -- Cleveland Browns\n"
+          "DAL -- Dallas Cowboys\n"
+          "DEN -- Denver Broncos\n"
+          "DET -- Detroit Lions\n"
+          "GB  -- Green Bay Packers\n"
+          "HOU -- Houston Texans\n"
+          "IND -- Indianapolis Colts\n"
+          "JAC -- Jacksonville Jaguars\n"
+          "KC  -- Kansas City Chiefs\n"
+          "LA  -- Los Angeles Rams\n"
+          "MIA -- Miami Dolphins\n"
+          "MIN -- Minnesota Vikings\n"
+          "NE  -- New England Patriots\n"
+          "NO  -- New Orleans Saints\n"
+          "NYG -- New York Giants\n"
+          "NYJ -- New York Jets\n"
+          "OAK -- Oakland Raiders\n"
+          "PHI -- Philadelphia Eagles\n"
+          "PIT -- Pittsburgh Steelers\n"
+          "SF  -- San Diego Chargers\n"
+          "SEA -- Seattle Seahawks\n"
+          "SF  -- San Francisco 49ers\n"
+          "TB  -- Tamba Bay Buccanners\n"
+          "TEN -- Tennessee Titans\n"
+          "WAS -- Washington Redskins\n")

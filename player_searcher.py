@@ -25,6 +25,16 @@ player_stats_receiving = collections.namedtuple(
         "receivingTwoPointAttemptMade, fumblesLost, yacYds, tds, rec, target, receivingYds, receivingTwoPointAttempt"
 )
 
+# player_stats_defensive = collections.namedtuple(
+#         "player_stats_defensive",
+#         "tackleLoss, recoveredFumbles, fgBlk, assistedTackles, recoveredFumbleYds, tackleLossYards, qbHit, miscTds, defenseInt, miscYds, extraPointBlock, defenseSack, intTds, punkBlk, recoveredFumbleTD, tacklePrimary, defenseSackYds, tackle, safety, passDef, intYds, forcedFumbles"
+# )
+
+player_stats_defensive = collections.namedtuple(
+        "player_stats_defensive",
+        "tackleLoss, recoveredFumbles, assistedTackles, tackleLossYards, qbHit, miscTds, defenseInt, defenseSack, intTds, recoveredFumbleTD, tacklePrimary, defenseSackYds, tackle, safety, passDef, intYds, forcedFumbles"
+)
+
 #TODO: Some players don't have teams, uniform numbers, etc. Fix Later
 def findPlayerLastName(search_text):
     url = 'http://api.suredbits.com/nfl/v0/players/{}'.format(search_text)
@@ -100,13 +110,8 @@ def stats_by_yr_week_statType(statType, name, year, week):
         receiving = results.receivingStats(player_stats_receiving, receiving_data)
         print("Stats for {}".format(name))
         printers.print_receiving_info(receiving)
-    elif statType.lower() == 'kick return':
-        pass
-    elif statType.lower() == 'fumbles':
-        pass
-    elif statType.lower() == 'defense':
-        pass
-    elif statType.lower() == 'kicking':
-        pass
-    elif statType.lower() == 'punting':
-        pass
+    elif statType.lower() == 'defensive':
+        defensive_data = resp.json()
+        defensive = results.defensiveStats(player_stats_defensive, defensive_data)
+        print("Stats for {}".format(name))
+        printers.print_defensive_info(defensive)
