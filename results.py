@@ -1,24 +1,29 @@
-# movies = []
-# for md in movie_list:
-#     m = MovieResult(
-#         imdb_code=md.get("imdb_code"),
-#         title=md.get("title"),
-#         duration=md.get("duration"),
-#         director=md.get("director"),
-#         year=md.get("year", 0),
-#         rating=md.get("rating", 0),
-#         imdb_score=md.get("imdb_score", 0.0),
-#         keywords=md.get("keywords"),
-#         genres=md.get("genres")
-#     )
-#     movies.append(m)
-
-import player_searcher
-
 class AttrDict(dict):
     def __init__(self, *args, **kwargs):
         super(AttrDict, self).__init__(*args, **kwargs)
         self.__dict__ = self
+
+def playerInfo(namedTuple, playerList):
+    player = []
+    for p in playerList:
+        pl = namedTuple(
+            weight=p.get("weight"),
+            profileId=p.get("profileId"),
+            uniformNumber=p.get("uniformNumber"),
+            fullName=p.get("fullName"),
+            height=p.get("height"),
+            lastName=p.get("lastName"),
+            firstName=p.get("firstName"),
+            birthDate=p.get("birthDate"),
+            profileUrl=p.get("profileUrl"),
+            status=p.get("status"),
+            team=p.get("team"),
+            position=p.get("position"),
+            yearsPro=p.get("yearsPro"),
+            college=p.get("college")
+        )
+    player.append(p)
+    return player
 
 def gameList(namedTuple, gameList):
     game = []

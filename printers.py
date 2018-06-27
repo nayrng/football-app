@@ -12,16 +12,16 @@ def print_player_info(input):
           "Years played = {}\n"
           "College = {}\n"
           "Profile URL = {}\n".format(
-        input.fullName,
-        input.height,
-        input.weight,
-        input.birthDate,
-        input.position,
-        input.team,
-        input.status,
-        input.yearsPro,
-        input.college,
-        input.profileUrl
+        input['fullName'],
+        input['height'],
+        input['weight'],
+        input['birthDate'],
+        input['position'],
+        input['team'],
+        input['status'],
+        input['yearsPro'],
+        input['college'],
+        input['profileUrl']
     ))
     print()
 
@@ -34,15 +34,25 @@ def print_game_info(resultList):
         score_board = Texttable()
         score_board.add_rows([['Team', '1st Quarter', '2nd Quarter', '3rd Quarter', '4th Quarter', 'Overtime'],
 
-                              [g['homeTeam']['team'], g['homeTeam']['scoreQ1'], g['homeTeam']['scoreQ2'],
-                               g['homeTeam']['scoreQ3'], g['homeTeam']['scoreQ4'], g['homeTeam']['score'] - (
-                                       g['homeTeam']['scoreQ1'] + g['homeTeam']['scoreQ2'] + g['homeTeam']['scoreQ3'] +
-                                       g['homeTeam']['scoreQ4'])],
-                              [g['awayTeam']['team'], g['awayTeam']['scoreQ1'], g['awayTeam']['scoreQ2'],
-                               g['awayTeam']['scoreQ3'], g['awayTeam']['scoreQ4'], g['awayTeam']['score'] - (
-                                       g['awayTeam']['scoreQ1'] + g['awayTeam']['scoreQ2'] + g['awayTeam']['scoreQ3'] +
-                                       g['awayTeam']['scoreQ4'])]]
-
+                              [g['homeTeam']['team'],
+                               g['homeTeam']['scoreQ1'],
+                               g['homeTeam']['scoreQ2'],
+                               g['homeTeam']['scoreQ3'],
+                               g['homeTeam']['scoreQ4'],
+                               g['homeTeam']['score'] -
+                               (g['homeTeam']['scoreQ1'] + g['homeTeam']['scoreQ2'] + g['homeTeam']['scoreQ3'] +
+                                g['homeTeam']['scoreQ4'])
+                               ],
+                              [g['awayTeam']['team'],
+                               g['awayTeam']['scoreQ1'],
+                               g['awayTeam']['scoreQ2'],
+                               g['awayTeam']['scoreQ3'],
+                               g['awayTeam']['scoreQ4'],
+                               g['awayTeam']['score'] -
+                               (g['awayTeam']['scoreQ1'] + g['awayTeam']['scoreQ2'] + g['awayTeam']['scoreQ3'] +
+                                g['awayTeam']['scoreQ4'])
+                               ]
+                              ]
                              )
 
         print(score_board.draw())
@@ -52,20 +62,6 @@ def print_game_info(resultList):
         print("     {}: {}".format(g['awayTeam']['team'], g['awayTeam']['score']))
         print()
 
-
-# "sack": 0,
-# "cmp": 19,
-# "passingTwoPointAttemptMade": 0,
-# "cmpAirYds": 121,
-# "passingTwoPointAttempt": 0,
-# "passingInt": 0,
-# "passingTds": 2,
-# "att": 26,
-# "sackYds": 0,
-# "inCmpAirYds": 50,
-# "passingTwoPointAttemptMissed": 0,
-# "inCmp": 7,
-# "passingYds": 222
 
 def print_passing_info(resultList):
     stats = Texttable()
@@ -87,6 +83,84 @@ def print_passing_info(resultList):
 
     print(stats.draw())
 
+    # TODO: FIX THIS
+def fullprint_passing_info(resultList):
+    stats = Texttable()
+    stats.add_rows([['CMP', 'ATT', 'YDS', 'CMP %', 'AVG Y/A', 'TD', 'INT', 'SCK', 'SCK YDS', '2PT COMP', '2PT ATT'],
+                        [resultList[0]['passing']['cmp'],
+                         resultList[0]['passing']['att'],
+                         resultList[0]['passing']['passingYds'],
+                         float(resultList[0]['passing']['cmp'] / resultList[0]['passing']['att']) * 100,
+                         float(resultList[0]['passing']['passingYds'] / resultList[0]['passing']['att']),
+                         resultList[0]['passing']['passingTds'],
+                         resultList[0]['passing']['passingInt'],
+                         resultList[0]['passing']['sack'],
+                         resultList[0]['passing']['sackYds'],
+                         resultList[0]['passing']['passingTwoPointAttempt'],
+                         resultList[0]['passing']['passingTwoPointAttemptMade']
+                         ]
+
+                        ])
+
+    print(stats.draw())
+
+def fullprint_rushing_info(resultList):
+    stats = Texttable()
+    stats.add_rows([['ATT', 'YDS', 'AVG', 'TD', 'FUM LOST', 'RUSH 2PT MADE', 'RUSH 2PT ATT'],
+                    [resultList[0]['rushing']['attempt'],
+                     resultList[0]['rushing']['rushingYds'],
+                     float(resultList[0]['rushing']['rushingYds'] / resultList[0]['rushing']['attempt']),
+                     resultList[0]['rushing']['tds'],
+                     resultList[0]['rushing']['fumblesLost'],
+                     resultList[0]['rushing']['rushingTwoPointAttemptMade'],
+                     resultList[0]['rushing']['rushingTwoPointAttempt']
+                     ]
+
+                    ])
+
+    print(stats.draw())
+
+def fullprint_receiving_info(resultList):
+    stats = Texttable()
+    stats.add_rows([['REC', ' TARGETS', 'YDS', 'AVG', 'YAC YDS', 'TD', 'FUM LOST', 'REC 2PT MADE', 'REC 2PT ATT'],
+                    [resultList[0]['receiving']['rec'],
+                     resultList[0]['receiving']['target'],
+                     resultList[0]['receiving']['receivingYds'],
+                     float(resultList[0]['receiving']['receivingYds'] / resultList[0]['receiving']['rec']),
+                     resultList[0]['receiving']['yacYds'],
+                     resultList[0]['receiving']['tds'],
+                     resultList[0]['receiving']['fumblesLost'],
+                     resultList[0]['receiving']['receivingTwoPointAttemptMade'],
+                     resultList[0]['receiving']['receivingTwoPointAttempt']
+                     ]
+
+                    ])
+
+    print(stats.draw())
+
+def fullprint_defensive_info(resultList):
+    stats = Texttable()
+    stats.add_rows(
+        [['SOLO TCKL', 'AST', 'TOTAL', 'TFL', 'TFL YDS', 'INT', 'PASS DEF', 'QB HIT', 'SACKS', 'FF', 'DEF TD', 'SFTY'],
+         [resultList[0]['defense']['tackle'],
+          resultList[0]['defense']['assistedTackles'],
+          resultList[0]['defense']['tackle'] + resultList[0]['defense']['assistedTackles'],
+          resultList[0]['defense']['tackleLoss'],
+          resultList[0]['defense']['tackleLossYards'],
+          resultList[0]['defense']['defenseInt'],
+          resultList[0]['defense']['passDef'],
+          resultList[0]['defense']['qbHit'],
+          resultList[0]['defense']['defenseSack'],
+          resultList[0]['defense']['forcedFumbles'],
+          resultList[0]['defense']['miscTds'] + resultList[0]['defense']['intTds'] + resultList[0]['defense']['recoveredFumbleTD'],
+          resultList[0]['defense']['safety']
+          ]
+
+         ])
+
+    print(stats.draw())
+
+
 def print_rushing_info(resultList):
     stats = Texttable()
     stats.add_rows([['ATT', 'YDS', 'AVG', 'TD', 'FUM LOST', 'RUSH 2PT MADE', 'RUSH 2PT ATT'],
@@ -103,9 +177,10 @@ def print_rushing_info(resultList):
 
     print(stats.draw())
 
+
 def print_receiving_info(resultList):
     stats = Texttable()
-    stats.add_rows([['REC',' TARGETS', 'YDS', 'AVG', 'YAC YDS', 'TD', 'FUM LOST', 'REC 2PT MADE', 'REC 2PT ATT'],
+    stats.add_rows([['REC', ' TARGETS', 'YDS', 'AVG', 'YAC YDS', 'TD', 'FUM LOST', 'REC 2PT MADE', 'REC 2PT ATT'],
                     [resultList[0]['rec'],
                      resultList[0]['target'],
                      resultList[0]['receivingYds'],
@@ -121,24 +196,26 @@ def print_receiving_info(resultList):
 
     print(stats.draw())
 
+
 def print_defensive_info(resultList):
     stats = Texttable()
-    stats.add_rows([['SOLO TCKL', 'AST', 'TOTAL', 'TFL', 'TFL YDS', 'INT', 'PASS DEF', 'QB HIT', 'SACKS', 'FF', 'DEF TD', 'SFTY'],
-                    [resultList[0]['tackle'],
-                     resultList[0]['assistedTackles'],
-                     resultList[0]['tackle'] + resultList[0]['assistedTackles'],
-                     resultList[0]['tackleLoss'],
-                     resultList[0]['tackleLossYards'],
-                     resultList[0]['defenseInt'],
-                     resultList[0]['passDef'],
-                     resultList[0]['qbHit'],
-                     resultList[0]['defenseSack'],
-                     resultList[0]['forcedFumbles'],
-                     resultList[0]['miscTds'] + resultList[0]['intTds'] + resultList[0]['recoveredFumbleTD'],
-                     resultList[0]['safety']
-                     ]
+    stats.add_rows(
+        [['SOLO TCKL', 'AST', 'TOTAL', 'TFL', 'TFL YDS', 'INT', 'PASS DEF', 'QB HIT', 'SACKS', 'FF', 'DEF TD', 'SFTY'],
+         [resultList[0]['tackle'],
+          resultList[0]['assistedTackles'],
+          resultList[0]['tackle'] + resultList[0]['assistedTackles'],
+          resultList[0]['tackleLoss'],
+          resultList[0]['tackleLossYards'],
+          resultList[0]['defenseInt'],
+          resultList[0]['passDef'],
+          resultList[0]['qbHit'],
+          resultList[0]['defenseSack'],
+          resultList[0]['forcedFumbles'],
+          resultList[0]['miscTds'] + resultList[0]['intTds'] + resultList[0]['recoveredFumbleTD'],
+          resultList[0]['safety']
+          ]
 
-                    ])
+         ])
 
     print(stats.draw())
 
@@ -157,9 +234,11 @@ def stat_prompt():
     print("Leave blank to return all available stats")
     print("Type 'HELP' for all supported stat types")
 
+
 def team_prompt():
     print("Please enter which team you'd like to look up")
     print("or type 'HELP' to view all teams and their keys")
+
 
 def team_help():
     print("ARI -- Arizona Cardinals\n"

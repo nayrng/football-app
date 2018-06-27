@@ -3,6 +3,8 @@ import game_searcher
 import requests
 import printers
 
+#TODO: cache data, export data onto a spreadsheet
+
 def searchPlayers():
     search = None
     while search != 'x':
@@ -18,6 +20,7 @@ def searchPlayers():
 
                 for p in results:
                     printers.print_player_info(p)
+                print("If you'd like to look at a player's stats, please go back and type their full name\n")
 
 
 
@@ -28,7 +31,8 @@ def searchPlayers():
                     printers.print_player_info(p)
                 stats = input("Would you like to look at this player's stats? (y/n) ")
                 if stats.lower() == 'y':
-                    player_searcher.stat_query(search)
+                    print(type(results), results)
+                    player_searcher.stat_query(search, results)
 
 
 def searchTeam():
@@ -42,7 +46,7 @@ def searchGame():
         print("a. Look up all the GAMES for the current week")
         print("b. Look up all GAMES for a given TEAM for the current week")
         print("c. Look up all GAMES for a given TEAM for the given YEAR (regular season games only")
-        print("d. Look up a specific GAME for a given TEAM for a given WEEK in a given YEAR")
+        print("d. Look up a specific GAME for a given TEAM for a given WEEK in a given YEAR") # Done
         print("e. Look up all GAMES played in a given YEAR")
         print("f. Look up all GAMES played for a given WEEK in a given YEAR")
 
@@ -63,7 +67,7 @@ def searchGame():
                     team = input()
                 season = input("Please type what year the game was played in: ")
                 week = input("Please type what week the game was played in: ")
-                game_searcher.search_for_specific_game(team, season, week)
+                game_searcher.search_for_specific_game(team, season, week, True)
             elif search.lower() == 'e':
                 pass
             elif search.lower() == 'f':
